@@ -1,11 +1,16 @@
-require('dotenv').config({ path: __dirname + '/.env' });
+require('dotenv').config();
 const express = require('express');
-const { connect } = require('./db');
+const connectDB = require('./database');
+const routesConfig = require('./routes.config');
+const expressConfig = require('./express');
 
 const app = express();
-const port = 8080;
-connect();
 
-app.listen(port, () => {
-  console.log(`Server ok http://localhost:${port}`);
+const PORT = 8080;
+
+app.listen(PORT, async () => {
+  expressConfig(app);
+  await connectDB();
+  routesConfig(app);
+  console.log(`The server is runnign on port: ${PORT}`);
 });
