@@ -18,6 +18,11 @@ const bookingSchema = new Schema(
       type: Number,
       required: true,
     },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
   { timestamps: true }
 );

@@ -34,6 +34,11 @@ const userSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    booking: {
+      type: Schema.Types.ObjectId,
+      ref: 'Booking',
+      required: false,
+    },
   },
   {
     timestamps: true,
