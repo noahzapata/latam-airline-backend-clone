@@ -14,4 +14,5 @@ const getBookingById = (id) => {
 const updateBooking = (id, data) => {
   return Booking.findByIdAndUpdate(id, data, { new: true });
 };
+
 module.exports = { createBooking, getBooking, getBookingById, updateBooking };

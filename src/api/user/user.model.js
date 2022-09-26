@@ -19,7 +19,7 @@ const userSchema = new Schema(
       required: true,
     },
     documentNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     email: {
@@ -35,8 +35,7 @@ const userSchema = new Schema(
       required: true,
     },
     booking: {
-      type: Schema.Types.ObjectId,
-      ref: 'Booking',
+      type: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
       required: false,
     },
   },

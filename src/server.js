@@ -12,5 +12,5 @@ app.listen(PORT, async () => {
   expressConfig(app);
   await connectDB();
   routesConfig(app);
-  console.log(`The server is runnign on port: ${PORT}`);
+  console.log(`The server is running on port: ${PORT}`);
 });
