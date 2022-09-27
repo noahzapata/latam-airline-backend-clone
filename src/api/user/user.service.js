@@ -5,11 +5,17 @@ function createUser(user) {
 }
 
 function allUsers() {
-  return User.find({});
+  return User.find({}).populate({
+    path: 'bookings',
+    select: 'origin destination luggage passengers',
+  });
 }
 
 function oneUser(id) {
-  return User.findById(id);
+  return User.findById(id).populate({
+    path: 'bookings',
+    select: 'origin destination luggage passengers',
+  });
 }
 
 function updateUser(id, user) {

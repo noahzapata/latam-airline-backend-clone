@@ -34,7 +34,7 @@ const userSchema = new Schema(
       type: Boolean,
       required: true,
     },
-    booking: {
+    bookings: {
       type: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
       required: false,
     },
