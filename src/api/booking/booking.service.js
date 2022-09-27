@@ -1,7 +1,7 @@
 const Booking = require('./booking.model');
 
-const createBooking = (booking) => {
-  return Booking.create(booking);
+const createBooking = (data, userId) => {
+  return Booking.create({ ...data, user: userId }).populate('user');
 };
 const getBooking = () => {
   return Booking.find({});

@@ -1,3 +1,4 @@
+const User = require('../user/user.model');
 const {
   createBooking,
   getBooking,
@@ -6,10 +7,15 @@ const {
 } = require('./booking.service');
 
 const create = async (req, res) => {
-  const bookingData = req.body;
-
+  const { bookingData, userId } = req.body;
   try {
-    const booking = await createBooking(bookingData);
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error('The user does not exist');
+    }
+    const booking = await createBooking(bookingData, userId);
+    user.bookings.push(booking);
+    await user.save({ validateBeforeSave: false });
     return res.status(200).json({ message: 'Booking created', data: booking });
   } catch (err) {
     return res

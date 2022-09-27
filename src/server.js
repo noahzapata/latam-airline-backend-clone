@@ -8,9 +8,9 @@ const app = express();
 
 const PORT = 8080;
 
-app.listen(PORT, async () => {
+app.listen(PORT, () => {
   expressConfig(app);
-  await connectDB();
+  connectDB();
   routesConfig(app);
   console.log(`The server is running on port: ${PORT}`);
 });

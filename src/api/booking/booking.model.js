@@ -11,12 +11,34 @@ const bookingSchema = new Schema(
       required: true,
     },
     luggage: {
-      type: Number,
-      required: false,
+      kilograms: {
+        type: Number,
+        emun: [15, 23],
+        default: 15,
+      },
+      amount: {
+        type: Number,
+        default: 1,
+      },
     },
     passengers: {
       type: Number,
       required: true,
+    },
+    adults: {
+      type: Number,
+      required: false,
+      default: 1,
+    },
+    kids: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    babies: {
+      type: Number,
+      required: false,
+      default: 0,
     },
     user: {
       type: Schema.Types.ObjectId,
