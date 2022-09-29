@@ -14,19 +14,24 @@ const flightSchema = new Schema(
     },
     departure: {
       airport: String,
-      airplane: String,
-      gate: String,
       delay: Number,
       schedule: Date,
       estimatedTime: Date,
     },
     arrival: {
       airport: String,
-      airplane: String,
-      gate: String,
       delay: Number,
       schedule: Date,
       estimatedTime: Date,
+    },
+    seats: {
+      type: Object,
+      required: true,
+    },
+    airplane: {
+      type: Schema.Types.ObjectId,
+      ref: 'Airplane',
+      required: false,
     },
   },
   { timestamps: true }

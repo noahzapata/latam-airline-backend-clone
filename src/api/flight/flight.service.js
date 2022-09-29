@@ -1,7 +1,9 @@
 const Flight = require('./flight.model');
 
-const createFlight = (flight) => {
-  return Flight.create(flight);
+const createFlight = (flight, airplaneId) => {
+  return Flight.create({ ...flight, airplane: airplaneId }).populate(
+    'airplane'
+  );
 };
 
 const getFlights = () => {
