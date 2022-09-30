@@ -9,9 +9,9 @@ const {
 const create = async (req, res) => {
   const dataFlight = req.body;
   const { airplaneId } = req.params;
-  console.log(airplaneId);
+  console.log(req.body);
   try {
-    const airplane = await Airplane.findById(airplaneId);
+    const airplane = Airplane.findById(airplaneId);
     if (!airplane) {
       throw new Error('This airplane does not exist');
     }
@@ -21,6 +21,7 @@ const create = async (req, res) => {
 
     return res.status(200).json({ message: 'flight created', data: flight });
   } catch (err) {
+    console.error(err);
     return res
       .status(400)
       .json({ message: 'flight could not be created', data: err });
