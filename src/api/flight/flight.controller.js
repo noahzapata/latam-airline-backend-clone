@@ -1,3 +1,4 @@
+const Airplane = require('../airplane/airplane.model');
 const {
   createFlight,
   getFlights,
@@ -7,10 +8,20 @@ const {
 
 const create = async (req, res) => {
   const dataFlight = req.body;
+  const { airplaneId } = req.params;
+  console.log(req.body);
   try {
-    const flight = await createFlight(dataFlight);
+    const airplane = Airplane.findById(airplaneId);
+    if (!airplane) {
+      throw new Error('This airplane does not exist');
+    }
+    const flight = await createFlight(dataFlight, airplaneId);
+    // airplane.flight.push(flight);
+    // await airplane.save({ validateBeforeSave: false });
+
     return res.status(200).json({ message: 'flight created', data: flight });
   } catch (err) {
+    console.error(err);
     return res
       .status(400)
       .json({ message: 'flight could not be created', data: err });
