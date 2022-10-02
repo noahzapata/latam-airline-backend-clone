@@ -1,10 +1,13 @@
 const Booking = require('./booking.model');
 
-const createBooking = (data, userId) => {
-  return Booking.create({ ...data, user: userId }).populate('user');
+const createBooking = async (data, userId) => {
+  return await Booking.create({ ...data, user: userId });
 };
 const getBooking = () => {
-  return Booking.find({});
+  return Booking.find({}).populate({
+    path: 'user',
+    select: 'firstname lastname -_id',
+  });
 };
 
 const getBookingById = (id) => {
