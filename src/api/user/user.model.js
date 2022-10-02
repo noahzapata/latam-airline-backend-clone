@@ -1,36 +1,68 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, models } = require('mongoose');
 
 const userSchema = new Schema(
   {
     firstname: {
       type: String,
-      required: true,
+      required: [true, 'The field is required'],
     },
     lastname: {
       type: String,
-      required: true,
+      required: [true, 'The field is required'],
     },
     country: {
       type: String,
-      required: true,
+      required: [true, 'The field is required'],
     },
     documentType: {
       type: String,
       required: true,
+      emun: {
+        values: ['Pasaporte', 'Cédula de ciudadanía'],
+        message: 'Invalid document type',
+      },
     },
     documentNumber: {
       type: String,
       required: true,
+      minLength: [8, 'Number document is too short'],
+      maxLength: [18, 'Number is too large'],
+      validate: [
+        {
+          async validator(value) {
+            try {
+              const user = await models.User.findOne({ documentNumber: value });
+              return !user;
+            } catch {
+              return false;
+            }
+          },
+          message: 'It is already exist a user with this document number',
+        },
+      ],
     },
     email: {
       type: String,
       required: true,
+      validate: [
+        {
+          async validator(value) {
+            try {
+              const user = await models.User.findOne({ email: value });
+              return !user;
+            } catch {
+              return false;
+            }
+          },
+          message: 'It is already exist a user with this email',
+        },
+      ],
     },
     password: {
       type: String,
       required: true,
     },
-    isLogIn: {
+    isActive: {
       type: Boolean,
       required: true,
     },

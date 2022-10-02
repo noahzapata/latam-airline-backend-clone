@@ -7,7 +7,7 @@ function createUser(user) {
 function allUsers() {
   return User.find({}).populate({
     path: 'bookings',
-    select: 'origin destination luggage passengers',
+    select: 'origin destination luggage -_id adults kids babies',
   });
 }
 

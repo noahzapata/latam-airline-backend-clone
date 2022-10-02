@@ -8,29 +8,50 @@ const flightSchema = new Schema(
       default: 'active',
     },
     price: {
-      light: Number,
-      basic: Number,
-      plus: Number,
+      light: String,
+      basic: String,
+      plus: String,
     },
     departure: {
-      airport: String,
+      airport: {
+        type: Schema.Types.ObjectId,
+        ref: 'Airport',
+        required: false,
+      },
+      seats: {
+        departureUser: {
+          type: Array,
+          required: true,
+        },
+      },
       delay: Number,
       schedule: Date,
       estimatedTime: Date,
     },
     arrival: {
-      airport: String,
+      airport: {
+        type: Schema.Types.ObjectId,
+        ref: 'Airport',
+        required: false,
+      },
+      seats: {
+        arrivalUser: {
+          type: Array,
+          required: false,
+        },
+      },
       delay: Number,
       schedule: Date,
       estimatedTime: Date,
     },
-    seats: {
-      type: Object,
-      required: true,
-    },
     airplane: {
       type: Schema.Types.ObjectId,
       ref: 'Airplane',
+      required: true,
+    },
+    booking: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: false,
     },
   },

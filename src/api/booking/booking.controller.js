@@ -7,7 +7,8 @@ const {
 } = require('./booking.service');
 
 const create = async (req, res) => {
-  const { bookingData, userId } = req.body;
+  const bookingData = req.body;
+  const { userId } = req.params;
   try {
     const user = await User.findById(userId);
     if (!user) {
@@ -44,7 +45,8 @@ const show = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const { bookingId, data } = req.body;
+  const data = req.body;
+  const { bookingId } = req.params;
   try {
     const booking = await updateBooking(bookingId, data);
     return res.status(200).json({ message: 'booking updated', data: booking });

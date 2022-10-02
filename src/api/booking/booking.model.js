@@ -4,30 +4,40 @@ const bookingSchema = new Schema(
   {
     origin: {
       type: String,
-      required: true,
+      required: [true, 'The field is required'],
     },
     destination: {
       type: String,
-      required: true,
+      required: [true, 'The field is required'],
     },
     luggage: {
       kilograms: {
         type: Number,
         emun: [15, 23],
         default: 15,
+        required: false,
       },
       amount: {
         type: Number,
         default: 1,
+        required: false,
       },
     },
-    passengers: {
-      type: Number,
+    departureDate: {
+      type: Date,
+      required: false,
+    },
+    arrivalDate: {
+      type: Date,
+      required: false,
+    },
+    roundtrip: {
+      type: Boolean,
       required: true,
     },
     adults: {
       type: Number,
-      required: false,
+      required: [true, 'Must to travel at leat one adult'],
       default: 1,
     },
     kids: {
@@ -44,6 +54,16 @@ const bookingSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
+    },
+    tripGoFlight: {
+      type: Schema.Types.ObjectId,
+      ref: 'Flight',
+      required: true,
+    },
+    tripGoBackFlight: {
+      type: Schema.Types.ObjectId,
+      ref: 'Flight',
+      required: false,
     },
   },
   { timestamps: true }

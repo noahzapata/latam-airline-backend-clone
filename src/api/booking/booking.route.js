@@ -3,9 +3,9 @@ const { create, list, show, update } = require('./booking.controller');
 
 const router = Router();
 
-router.post('/', create);
+router.post('/:userId', create);
 router.get('/', list);
 router.get('/booking', show);
-router.put('/booking', update);
+router.put('/:bookingId', update);
 
 module.exports = router;
