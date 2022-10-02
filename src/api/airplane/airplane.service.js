@@ -5,7 +5,11 @@ const createAirplane = (airplane) => {
 };
 
 const getAirplanes = () => {
-  return Airplane.find({}).populate('flight');
+  return Airplane.find({});
 };
 
-module.exports = { createAirplane, getAirplanes };
+const updateAirplanes = (id, airplane) => {
+  return Airplane.findByIdAndUpdate(id, airplane, { new: true });
+};
+
+module.exports = { createAirplane, getAirplanes, updateAirplanes };

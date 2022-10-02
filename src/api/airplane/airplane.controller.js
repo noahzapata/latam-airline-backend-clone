@@ -1,4 +1,8 @@
-const { createAirplane, getAirplanes } = require('./airplane.service');
+const {
+  createAirplane,
+  getAirplanes,
+  updateAirplanes,
+} = require('./airplane.service');
 
 const create = async (req, res) => {
   const dataAirplane = req.body;
@@ -25,4 +29,19 @@ const list = async (req, res) => {
   }
 };
 
-module.exports = { create, list };
+const update = async (req, res) => {
+  const airplaneData = req.body;
+  const { airplaneId } = req.params;
+  try {
+    const airplane = await updateAirplanes(airplaneId, airplaneData);
+    return res
+      .status(200)
+      .json({ message: 'Airplane updated', data: airplane });
+  } catch (err) {
+    return res
+      .status(200)
+      .json({ message: 'Airplane could not be updated', data: err });
+  }
+};
+
+module.exports = { create, list, update };
