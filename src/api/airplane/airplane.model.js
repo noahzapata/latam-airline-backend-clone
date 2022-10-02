@@ -14,7 +14,7 @@ const airplaneSchema = new Schema(
       type: Number,
       required: true,
     },
-    flight: {
+    flights: {
       type: [{ type: Schema.Types.ObjectId, ref: 'Flight' }],
       required: false,
     },

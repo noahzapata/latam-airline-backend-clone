@@ -1,8 +1,7 @@
 const Flight = require('./flight.model');
 
 const createFlight = async (flight, airplaneId) => {
-  const newFlight = await Flight.create({ ...flight, airplane: airplaneId });
-  return newFlight;
+  return await Flight.create({ ...flight, airplane: airplaneId });
 };
 
 const getFlights = () => {

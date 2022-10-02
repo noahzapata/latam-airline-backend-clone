@@ -55,6 +55,16 @@ const bookingSchema = new Schema(
       ref: 'User',
       required: true,
     },
+    tripGoFlight: {
+      type: Schema.Types.ObjectId,
+      ref: 'Flight',
+      required: true,
+    },
+    tripGoBackFlight: {
+      type: Schema.Types.ObjectId,
+      ref: 'Flight',
+      required: false,
+    },
   },
   { timestamps: true }
 );
