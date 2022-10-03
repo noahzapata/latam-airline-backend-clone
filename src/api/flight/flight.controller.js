@@ -1,4 +1,5 @@
 const Airplane = require('../airplane/airplane.model');
+const Airport = require('../airport/airport.model');
 const {
   createFlight,
   getFlights,
@@ -8,13 +9,28 @@ const {
 
 const create = async (req, res) => {
   const dataFlight = req.body;
-  const { airplaneId } = req.params;
+  const { airplaneId, airportDId, airportAId } = req.params;
+
   try {
     const airplane = Airplane.findById(airplaneId);
     if (!airplane) {
       throw new Error('This airplane does not exist');
     }
-    const flight = await createFlight(dataFlight, airplaneId);
+    const airportDeparture = await Airport.findById(airportDId);
+    if (!airportDeparture) {
+      throw new Error('The departure airport does not exist');
+    }
+    const airportArrival = await Airport.findById(airportAId);
+    if (!airportArrival) {
+      throw new Error('The arrival airport does not exist');
+    }
+
+    const flight = await createFlight(
+      dataFlight,
+      airplaneId,
+      airportDId,
+      airportAId
+    );
     return res.status(200).json({ message: 'flight created', data: flight });
   } catch (err) {
     console.error(err);
