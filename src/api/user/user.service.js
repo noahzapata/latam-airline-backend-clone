@@ -1,30 +1,38 @@
 const User = require('./user.model');
 
-function createUser(user) {
-  return User.create(user);
-}
+const createUser = async (user) => {
+  return await User.create(user);
+};
 
-function allUsers() {
+const allUsers = () => {
   return User.find({}).populate({
     path: 'bookings',
     select: 'origin destination luggage -_id adults kids babies',
   });
-}
+};
 
-function oneUser(id) {
+const oneUser = (id) => {
   return User.findById(id).populate({
     path: 'bookings',
     select: 'origin destination luggage passengers',
   });
-}
+};
 
-function updateUser(id, user) {
+const updateUser = (id, user) => {
   return User.findByIdAndUpdate(id, user, { new: true });
-}
+};
 
-function deleteUser(id) {
+const deleteUser = (id) => {
   return User.findByIdAndRemove(id);
-}
+};
+
+const signUp = async (email, encPassword) => {
+  return User.create({ email, password: encPassword });
+};
+
+const signIn = (email) => {
+  return User.findOne({ email });
+};
 
 module.exports = {
   createUser,
@@ -32,4 +40,6 @@ module.exports = {
   oneUser,
   updateUser,
   deleteUser,
+  signIn,
+  signUp,
 };
