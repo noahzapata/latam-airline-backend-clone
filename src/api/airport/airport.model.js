@@ -14,6 +14,18 @@ const airportSchema = new Schema(
       type: String,
       required: [true, 'This field is required'],
     },
+    city: {
+      type: String,
+      required: [true, 'This field is requried'],
+    },
+    country: {
+      type: String,
+      required: [true, 'This field is required'],
+    },
+    flight: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'Flight' }],
+      required: false,
+    },
   },
   { timestamps: true }
 );
