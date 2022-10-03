@@ -13,8 +13,8 @@ const bookingSchema = new Schema(
     luggage: {
       kilograms: {
         type: Number,
-        emun: [15, 23],
-        default: 15,
+        emun: [0, 15, 23],
+        default: 0,
         required: false,
       },
       amount: {
