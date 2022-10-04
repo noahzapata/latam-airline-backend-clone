@@ -9,18 +9,24 @@ const {
   signIn,
   signUp,
 } = require('./user.service');
+const User = require('./user.model');
 
 const signUpHandle = async (req, res) => {
-  const { email, password } = req.body;
+  const userData = req.body;
+  const { email } = userData;
   try {
-    const encPassword = await bcrypt.hash(password, 8);
-    const user = await signUp(email, encPassword);
+    const existingUser = await User.find({ email });
+    if (!existingUser) {
+      throw new Error('The user already exist');
+    }
+    const encPassword = await bcrypt.hash(userData.password, 8);
+    const user = await signUp(userData, encPassword);
     const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
       expiresIn: 60 * 60 * 24,
     });
     return res
       .status(201)
-      .json({ message: 'User created successfully', data: { email, token } });
+      .json({ message: 'User created successfully', data: { user, token } });
   } catch (err) {
     return res
       .status(400)

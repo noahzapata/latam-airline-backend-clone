@@ -19,7 +19,7 @@ const airplaneSchema = new Schema(
       required: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 const Airplane = model('Airplane', airplaneSchema);

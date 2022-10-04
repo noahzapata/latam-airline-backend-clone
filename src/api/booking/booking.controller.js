@@ -1,4 +1,5 @@
 const User = require('../user/user.model');
+const jwt = require('jsonwebtoken');
 const {
   createBooking,
   getBooking,
@@ -7,14 +8,14 @@ const {
 } = require('./booking.service');
 
 const create = async (req, res) => {
-  const bookingData = req.body;
-  const { userId } = req.params;
   try {
-    const user = await User.findById(userId);
+    const { bookingData, token } = req.body;
+    const { id } = jwt.verify(token, process.env.SECRET_KEY);
+    const user = await User.findById(id);
     if (!user) {
       throw new Error('The user does not exist');
     }
-    const booking = await createBooking(bookingData, userId);
+    const booking = await createBooking(bookingData, id);
     user.bookings.push(booking);
     await user.save({ validateBeforeSave: false });
     return res.status(200).json({ message: 'Booking created', data: booking });

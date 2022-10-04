@@ -66,7 +66,7 @@ const bookingSchema = new Schema(
       required: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 const Booking = model('Booking', bookingSchema);

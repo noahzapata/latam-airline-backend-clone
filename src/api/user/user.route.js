@@ -1,5 +1,5 @@
 const Router = require('express');
-const { authenticate } = require('../utils/auth');
+const { authenticate } = require('../middleware/auth');
 const {
   create,
   list,
@@ -17,7 +17,7 @@ router.get('/', list);
 router.get('/:userId', show);
 router.put('/:userId', update);
 router.delete('/:userId', destroy);
-router.post('/signin', authenticate, signInHandle);
-router.post('/signup', authenticate, signUpHandle);
+router.post('/signin', signInHandle);
+router.post('/signup', signUpHandle);
 
 module.exports = router;

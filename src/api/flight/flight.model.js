@@ -55,7 +55,7 @@ const flightSchema = new Schema(
       required: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 const Flight = model('Flight', flightSchema);
