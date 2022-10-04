@@ -26,8 +26,8 @@ const deleteUser = (id) => {
   return User.findByIdAndRemove(id);
 };
 
-const signUp = async (email, encPassword) => {
-  return User.create({ email, password: encPassword });
+const signUp = async (user, encPassword) => {
+  return User.create({ ...user, password: encPassword });
 };
 
 const signIn = (email) => {
