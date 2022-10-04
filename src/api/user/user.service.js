@@ -1,7 +1,7 @@
 const User = require('./user.model');
 
-const createUser = async (user) => {
-  return await User.create(user);
+const createUser = (user) => {
+  return User.create(user);
 };
 
 const allUsers = () => {
