@@ -7,6 +7,7 @@ const authenticate = async (req, res, next) => {
     if (!authorization) {
       throw new Error('The sesion has expired by athorization');
     }
+    // eslint-disable-next-line no-unused-vars
     const [_, token] = authorization.split(' ');
     if (!token) {
       throw new Error('The sesion has expired by token');
