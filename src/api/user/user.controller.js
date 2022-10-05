@@ -80,11 +80,9 @@ async function list(req, res) {
 }
 
 async function show(req, res) {
-  const token = req.body;
+  const userId = req.user;
   try {
-    const { id } = jwt.verify(token, process.env.SECRET_KEY);
-    req.user = id;
-    const user = await oneUser(req.user);
+    const user = await oneUser(userId);
     return res.status(200).json({ message: 'User found', data: user });
   } catch (err) {
     return res.status(400).json({ message: 'User not found', data: err });
