@@ -14,6 +14,7 @@ const airportSchema = new Schema(
       type: String,
       required: [true, 'This field is required'],
     },
+    cityCode: String,
     city: {
       type: String,
       required: [true, 'This field is requried'],

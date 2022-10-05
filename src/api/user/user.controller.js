@@ -80,7 +80,7 @@ async function list(req, res) {
 }
 
 async function show(req, res) {
-  const { userId } = req.params;
+  const userId = req.user;
   try {
     const user = await oneUser(userId);
     return res.status(200).json({ message: 'User found', data: user });
