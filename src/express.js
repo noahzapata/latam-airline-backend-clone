@@ -5,7 +5,7 @@ const morgan = require('morgan');
 function expressConfig(app) {
   app.use(express.json());
   app.use(cors());
-  app.use(morgan('tiny'));
+  app.use(morgan('dev'));
 }
 
 module.exports = expressConfig;

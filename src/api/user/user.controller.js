@@ -10,6 +10,7 @@ const {
   signUp,
 } = require('./user.service');
 const User = require('./user.model');
+const { transporter, welcome } = require('../../utils/mailer');
 
 const signUpHandle = async (req, res) => {
   const userData = req.body;
@@ -24,6 +25,7 @@ const signUpHandle = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
       expiresIn: 60 * 60 * 24,
     });
+    await transporter.sendMail(welcome(user));
     return res
       .status(201)
       .json({ message: 'User created successfully', data: { user, token } });
@@ -54,7 +56,7 @@ const signInHandle = async (req, res) => {
   } catch (err) {
     return res
       .status(400)
-      .json({ message: 'User could not be created', error: err.message });
+      .json({ message: 'User could not login', error: err.message });
   }
 };
 
