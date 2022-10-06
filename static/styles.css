@@ -1,0 +1,36 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 1.5;
+  background-color: aliceblue;
+}
+.container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  width: 600px;
+  height: 320px;
+  border: 2px solid #1b0088;
+  border-radius: 15px;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 0 10px 5px rgba(0, 30, 180, 0.5);
+}
+.header {
+  text-align: center;
+  color: #1b0088;
+}
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.description {
+  width: 270px;
+}
