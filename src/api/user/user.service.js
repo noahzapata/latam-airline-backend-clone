@@ -18,8 +18,14 @@ const oneUser = (id) => {
   });
 };
 
-const updateUser = (id, user) => {
-  return User.findByIdAndUpdate(id, user, { new: true });
+const updatePhotoUser = async (data) => {
+  const { email, profilePhoto } = data;
+  const user = await User.findOne({ email });
+  return await User.findByIdAndUpdate(
+    user.id,
+    { profilePhoto: profilePhoto },
+    { new: true }
+  );
 };
 
 const deleteUser = (id) => {
@@ -38,7 +44,7 @@ module.exports = {
   createUser,
   allUsers,
   oneUser,
-  updateUser,
+  updatePhotoUser,
   deleteUser,
   signIn,
   signUp,

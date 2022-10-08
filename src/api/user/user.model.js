@@ -10,6 +10,7 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'The field is required'],
     },
+    profilePhoto: String,
     country: {
       type: String,
       required: [true, 'The field is required'],

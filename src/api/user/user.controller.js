@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const {
-  updateUser,
+  updatePhotoUser,
   createUser,
   allUsers,
   oneUser,
@@ -92,10 +92,9 @@ async function show(req, res) {
 }
 
 async function update(req, res) {
-  const { userId } = req.params;
   const userData = req.body;
   try {
-    const userUdated = await updateUser(userId, userData);
+    const userUdated = await updatePhotoUser(userData);
     return res.status(200).json({ message: 'User updated', data: userUdated });
   } catch (err) {
     return res
