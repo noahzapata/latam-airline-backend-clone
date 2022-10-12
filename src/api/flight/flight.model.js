@@ -3,56 +3,30 @@ const { Schema, model } = require('mongoose');
 const flightSchema = new Schema(
   {
     status: {
-      type: String,
-      enum: ['active', 'inactive'],
-      default: 'active',
+      type: Boolean,
+      default: true,
     },
-    price: {
-      light: String,
-      basic: String,
-      plus: String,
+    price: Number,
+    seats: [{}],
+    departureAirport: {
+      type: Schema.Types.ObjectId,
+      ref: 'Airport',
+      required: true,
     },
-    departure: {
-      airport: {
-        type: Schema.Types.ObjectId,
-        ref: 'Airport',
-        required: false,
-      },
-      seats: {
-        departureUser: {
-          type: Array,
-          required: true,
-        },
-      },
-      delay: Number,
-      schedule: Date,
-      estimatedTime: Date,
+    departureArrival: {
+      type: Schema.Types.ObjectId,
+      ref: 'Airport',
+      required: false,
     },
-    arrival: {
-      airport: {
-        type: Schema.Types.ObjectId,
-        ref: 'Airport',
-        required: false,
-      },
-      seats: {
-        arrivalUser: {
-          type: Array,
-          required: false,
-        },
-      },
-      delay: Number,
-      schedule: Date,
-      estimatedTime: Date,
-    },
+    date: Date,
     airplane: {
       type: Schema.Types.ObjectId,
       ref: 'Airplane',
       required: true,
     },
-    booking: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: false,
+    bookings: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
+      required: true,
     },
   },
   { timestamps: true, versionKey: false }

@@ -17,24 +17,8 @@ const bookingSchema = new Schema(
       type: Boolean,
       required: false,
     },
-    adults: {
-      type: Number,
-      required: [true, 'Must to travel at leat one adult'],
-      default: 1,
-    },
-    kids: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-    babies: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+    users: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
       required: true,
     },
     tripGoFlight: {
