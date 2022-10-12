@@ -2,63 +2,29 @@ const { Schema, model } = require('mongoose');
 
 const bookingSchema = new Schema(
   {
-    origin: {
+    departure: {
       type: String,
       required: [true, 'The field is required'],
     },
-    destination: {
+    arrival: {
       type: String,
       required: [true, 'The field is required'],
     },
-    luggage: {
-      kilograms: {
-        type: Number,
-        emun: [0, 15, 23],
-        default: 0,
-        required: false,
-      },
-      amount: {
-        type: Number,
-        default: 1,
-        required: false,
-      },
-    },
-    departureDate: {
-      type: Date,
-      required: false,
-    },
-    arrivalDate: {
-      type: Date,
-      required: false,
-    },
+    luggage: [{}],
+    reservedSeats: [{}],
+    checkIn: [],
     roundtrip: {
       type: Boolean,
-      required: true,
-    },
-    adults: {
-      type: Number,
-      required: [true, 'Must to travel at leat one adult'],
-      default: 1,
-    },
-    kids: {
-      type: Number,
       required: false,
-      default: 0,
     },
-    babies: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+    users: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
       required: true,
     },
     tripGoFlight: {
       type: Schema.Types.ObjectId,
       ref: 'Flight',
-      required: true,
+      required: false,
     },
     tripGoBackFlight: {
       type: Schema.Types.ObjectId,

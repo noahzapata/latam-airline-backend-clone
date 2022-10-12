@@ -2,18 +2,18 @@ const { Schema, model, models } = require('mongoose');
 
 const userSchema = new Schema(
   {
-    firstname: {
+    firstName: {
       type: String,
       required: [true, 'The field is required'],
     },
-    lastname: {
+    lastName: {
       type: String,
       required: [true, 'The field is required'],
     },
     profilePhoto: String,
     country: {
       type: String,
-      required: [true, 'The field is required'],
+      required: true,
     },
     documentType: {
       type: String,
@@ -64,9 +64,10 @@ const userSchema = new Schema(
       minLength: [8, 'The password too short'],
       required: true,
     },
-    isActive: {
+    isRegistered: {
       type: Boolean,
-      required: true,
+      required: false,
+      default: false,
     },
     bookings: {
       type: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
