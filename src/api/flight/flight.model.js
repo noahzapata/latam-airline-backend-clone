@@ -7,7 +7,7 @@ const flightSchema = new Schema(
       default: true,
     },
     price: Number,
-    seats: [{}],
+    seats: {},
     departureAirport: {
       type: Schema.Types.ObjectId,
       ref: 'Airport',
