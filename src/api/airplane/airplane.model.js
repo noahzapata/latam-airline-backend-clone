@@ -10,10 +10,6 @@ const airplaneSchema = new Schema(
       type: String,
       required: true,
     },
-    airBus: {
-      type: Number,
-      required: true,
-    },
     flights: {
       type: Schema.Types.ObjectId,
       ref: 'Flight',
