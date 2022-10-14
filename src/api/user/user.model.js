@@ -15,7 +15,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       emun: {
-        values: ['Female', 'Male', 'ND'],
+        values: ['Female', 'Male', 'ND'], //ND stands for No Data
         message: 'Invalid gender input',
       },
     },
