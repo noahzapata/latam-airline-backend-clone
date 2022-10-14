@@ -8,23 +8,14 @@ const createFlight = async (
 ) => {
   return await Flight.create({
     ...flight,
+    departureAirport: airportDeparture,
+    departureArrival: airportArrival,
     airplane: airplaneId,
-    departure: {
-      ...flight.departure,
-      airport: airportDeparture,
-    },
-    arrival: {
-      ...flight.arrival,
-      airport: airportArrival,
-    },
   });
 };
 
 const getFlights = () => {
-  return Flight.find({}).populate({
-    path: 'airplane',
-    select: 'plate airBus -_id planeModel',
-  });
+  return Flight.find({});
 };
 
 const getFlightsById = (id) => {
