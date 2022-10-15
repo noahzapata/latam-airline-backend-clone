@@ -10,6 +10,15 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'The field is required'],
     },
+    birthdate: Date,
+    gender: {
+      type: String,
+      required: true,
+      emun: {
+        values: ['Female', 'Male', 'ND'], //ND stands for No Data
+        message: 'Invalid gender input',
+      },
+    },
     profilePhoto: String,
     country: {
       type: String,
