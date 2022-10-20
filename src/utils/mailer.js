@@ -24,10 +24,10 @@ const welcome = (user) => {
     subject: 'Bienvenido a Latam',
     html: `
       <div>
-        <h1>Bienvenido ${user.firstname} ${user.lastname}</h1>
+        <h1>Bienvenido ${user.firstName} ${user.lastName}</h1>
       </div>
     `,
-    text: `Bienvenido ${user.firstname} ${user.lastname}`,
+    text: `Bienvenido ${user.firstName} ${user.lastName}`,
   };
 };
 
