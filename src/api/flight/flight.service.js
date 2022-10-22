@@ -14,8 +14,8 @@ const createFlight = async (
   });
 };
 
-const getFlights = () => {
-  return Flight.find({});
+const getFlights = (departureCity, arrivalCity, dates) => {
+  return Flight.find({ departureCity, arrivalCity, dates });
 };
 
 const getFlightsById = (id) => {
