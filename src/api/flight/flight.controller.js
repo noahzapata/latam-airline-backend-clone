@@ -2,6 +2,7 @@ const Airplane = require('../airplane/airplane.model');
 const Airport = require('../airport/airport.model');
 const {
   createFlight,
+  getGoReturnFlights,
   getFlights,
   getFlightsById,
   updateFlight,
@@ -40,7 +41,34 @@ const create = async (req, res) => {
   }
 };
 
-const list = async (req, res) => {
+const listGoReturnFlights = async (req, res) => {
+  const dataBooking = req.body;
+  try {
+    const flights = await getGoReturnFlights();
+    const goFlights = flights.filter((flight) => {
+      return (
+        flight.departureAirport.city === dataBooking.departureCity &&
+        flight.departureArrival.city === dataBooking.arrivalCity &&
+        new Date(flight.date).getDay() ===
+          new Date(dataBooking.dates[0]).getDay()
+      );
+    });
+    const returnFlights = flights.filter((flight) => {
+      return (
+        flight.departureAirport.city === dataBooking.arrivalCity &&
+        flight.departureArrival.city === dataBooking.departureCity &&
+        new Date(flight.date).getDay() ===
+          new Date(dataBooking.dates[1]).getDay()
+      );
+    });
+    return res
+      .status(200)
+      .json({ message: 'Flights found', data: { goFlights, returnFlights } });
+  } catch (err) {
+    return res.status(400).json({ message: 'Flights not found', data: err });
+  }
+};
+const list = async (_, res) => {
   try {
     const flights = await getFlights();
     return res.status(200).json({ message: 'Flights found', data: flights });
@@ -72,4 +100,4 @@ const update = async (req, res) => {
   }
 };
 
-module.exports = { create, list, show, update };
+module.exports = { create, listGoReturnFlights, list, show, update };
