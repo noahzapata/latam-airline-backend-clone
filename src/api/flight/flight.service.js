@@ -14,8 +14,19 @@ const createFlight = async (
   });
 };
 
+const getGoReturnFlights = () => {
+  return Flight.find({}).populate([
+    'departureAirport',
+    'departureArrival',
+    'airplane',
+  ]);
+};
 const getFlights = () => {
-  return Flight.find({});
+  return Flight.find({}).populate([
+    'departureAirport',
+    'departureArrival',
+    'airplane',
+  ]);
 };
 
 const getFlightsById = (id) => {
@@ -26,4 +37,10 @@ const updateFlight = (id, flight) => {
   return Flight.findByIdAndUpdate(id, flight, { new: true });
 };
 
-module.exports = { createFlight, getFlights, getFlightsById, updateFlight };
+module.exports = {
+  createFlight,
+  getFlights,
+  getGoReturnFlights,
+  getFlightsById,
+  updateFlight,
+};

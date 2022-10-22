@@ -1,8 +1,15 @@
 const Router = require('express');
-const { create, list, show, update } = require('./flight.controller');
+const {
+  create,
+  listGoReturnFlights,
+  list,
+  show,
+  update,
+} = require('./flight.controller');
 
 const router = Router();
 
+router.post('/go-return', listGoReturnFlights);
 router.get('/', list);
 router.post('/:airplaneId/:airportDId/:airportAId', create);
 router.get('/:flightId', show);
