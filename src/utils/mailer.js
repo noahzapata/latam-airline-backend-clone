@@ -34,9 +34,9 @@ const welcome = (user) => {
   border-radius: 10px;" >
     <div style="width: 40rem;">
       <div style="  max-width: 100%;
-      display: flex;
-      justify-content: center;
-      margin: 1rem 1rem;">
+        display: flex;
+        justify-content: center;
+        margin: 1rem 1rem;">
         <img
         style="  border-radius: 10px;
         width: 15%;"
@@ -49,7 +49,7 @@ const welcome = (user) => {
         style="  border-radius: 10px;
         width: 100%;
         max-width: 100%;"
-          src="https://ci6.googleusercontent.com/proxy/v1mgckBNcupOwa1Ug_u4ydBoGXs_AVYFZSdvv75Gws-1_9323OkFh_NdUcN7LLaYYj0p4s7r4IBh2TyJQ7DDCzEuSkNr4n_YAjKinwIQRCIr54Vbs8crBcKfybGEsBr6ag=s0-d-e1-ft#https://s.latamairlines.com/images/emails/auth0/verification/heading_base.jpeg"
+        src="https://res.cloudinary.com/dvthwktqe/image/upload/v1666617960/latam-airlines-clone/unnamed_ghmfia.jpg"
           alt="latam"
         />
       </div>
@@ -90,7 +90,8 @@ const welcome = (user) => {
       </div>
       <hr style="  margin-top: 2rem;
       height: 0.01px;
-      width: 100%;" />
+      width: 90%;
+      color: rgb(244, 244, 244);" />
       <div style="  display: flex;
       flex-direction: column;
       width: 100%;">
@@ -101,7 +102,7 @@ const welcome = (user) => {
         color: rgb(106, 106, 106);">
           <p>¿Te ayudó esta información?</p>
           <div style=" margin: 1.5rem auto;">
-            <button style="  background-color: white;
+            <button style=" border: 1px solid rgb(228, 228, 228);  background-color: white;
             border: 1px solid grey;
             width: 4rem;
             height: 2.5rem;">
