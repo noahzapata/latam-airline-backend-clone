@@ -62,7 +62,7 @@ const welcome = (user) => {
       width: 20rem;">
         <div class="container-info-header">
           <h1 style="  font-size: 2rem;
-          color: rgb(22, 22, 126);" >Hola, ${user.firstname}</h1>
+          color: rgb(22, 22, 126);" >Hola, ${user.firstName}</h1>
         </div>
         <div class="container-info-header-info">
           <span style=" font-size: 1.8rem;
