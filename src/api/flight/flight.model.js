@@ -6,6 +6,7 @@ const flightSchema = new Schema(
       type: Boolean,
       default: true,
     },
+    estimatedTime: String,
     price: Number,
     seats: {},
     departureAirport: {
