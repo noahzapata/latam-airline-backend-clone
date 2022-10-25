@@ -21,6 +21,7 @@ const flightSchema = new Schema(
       required: false,
     },
     date: Date,
+    arrivalDate: Date,
     airplane: {
       type: Schema.Types.ObjectId,
       ref: 'Airplane',
