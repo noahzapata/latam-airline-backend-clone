@@ -45,25 +45,39 @@ const listGoReturnFlights = async (req, res) => {
   const dataBooking = req.body;
   try {
     const flights = await getGoReturnFlights();
-    const goFlights = flights.filter((flight) => {
-      return (
-        flight.departureAirport.city === dataBooking.departureCity &&
-        flight.departureArrival.city === dataBooking.arrivalCity &&
-        new Date(flight.date).getDay() ===
-          new Date(dataBooking.dates[0]).getDay()
-      );
-    });
-    const returnFlights = flights.filter((flight) => {
-      return (
-        flight.departureAirport.city === dataBooking.arrivalCity &&
-        flight.departureArrival.city === dataBooking.departureCity &&
-        new Date(flight.date).getDay() ===
-          new Date(dataBooking.dates[1]).getDay()
-      );
-    });
-    return res
-      .status(200)
-      .json({ message: 'Flights found', data: { goFlights, returnFlights } });
+    if (dataBooking.dates[1] === null) {
+      const goFlights = flights.filter((flight) => {
+        return (
+          flight.departureAirport.city === dataBooking.departureCity &&
+          flight.departureArrival.city === dataBooking.arrivalCity &&
+          new Date(flight.date).getDay() ===
+            new Date(dataBooking.dates[0]).getDay()
+        );
+      });
+      return res
+        .status(200)
+        .json({ message: 'Flights found', data: { goFlights } });
+    } else {
+      const goFlights = flights.filter((flight) => {
+        return (
+          flight.departureAirport.city === dataBooking.departureCity &&
+          flight.departureArrival.city === dataBooking.arrivalCity &&
+          new Date(flight.date).getDay() ===
+            new Date(dataBooking.dates[0]).getDay()
+        );
+      });
+      const returnFlights = flights.filter((flight) => {
+        return (
+          flight.departureAirport.city === dataBooking.arrivalCity &&
+          flight.departureArrival.city === dataBooking.departureCity &&
+          new Date(flight.date).getDay() ===
+            new Date(dataBooking.dates[1]).getDay()
+        );
+      });
+      return res
+        .status(200)
+        .json({ message: 'Flights found', data: { goFlights, returnFlights } });
+    }
   } catch (err) {
     return res.status(400).json({ message: 'Flights not found', data: err });
   }
