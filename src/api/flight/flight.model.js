@@ -8,6 +8,7 @@ const flightSchema = new Schema(
     },
     estimatedTime: String,
     price: Number,
+    scales: String,
     seats: {},
     departureAirport: {
       type: Schema.Types.ObjectId,
