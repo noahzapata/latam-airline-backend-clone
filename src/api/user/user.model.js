@@ -71,7 +71,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       minLength: [8, 'The password too short'],
-      required: true,
+      required: false,
     },
     isRegistered: {
       type: Boolean,

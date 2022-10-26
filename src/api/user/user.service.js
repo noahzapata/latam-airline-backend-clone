@@ -17,6 +17,11 @@ const oneUser = (id) => {
     select: 'origin destination luggage passengers',
   });
 };
+const findFlights = (email) => {
+  return User.findOne({ email }).populate({
+    path: 'bookings',
+  });
+};
 
 const updatePhotoUser = async (data) => {
   const { email, profilePhoto } = data;
@@ -44,6 +49,7 @@ module.exports = {
   createUser,
   allUsers,
   oneUser,
+  findFlights,
   updatePhotoUser,
   deleteUser,
   signIn,
