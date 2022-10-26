@@ -75,24 +75,23 @@ async function create(req, res) {
     if (!booking) {
       throw new Error('The booking does not exist');
     }
-
     for (let i = 0; i < passengerRelated.length; i++) {
       const existingUser = await User.findOne({
         email: passengerRelated[i].email,
       });
       if (!existingUser) {
         const user = await createUser(passengerRelated[i]);
-        user.bookings.push(booking._id);
+        user.bookings.push(booking);
         await user.save({ validateBeforeSave: false });
         userSaved.push(user);
-        booking.users.push(user._id);
+        booking.users.push(user);
         await booking.save({ validateBeforeSave: false });
         await transporter.sendMail(welcome(user));
       } else {
-        existingUser.bookings.push(booking._id);
+        existingUser.bookings.push(booking);
         await existingUser.save({ validateBeforeSave: false });
         userSaved.push(existingUser);
-        booking.users.push(existingUser._id);
+        booking.users.push(existingUser);
         await booking.save({ validateBeforeSave: false });
       }
     }
