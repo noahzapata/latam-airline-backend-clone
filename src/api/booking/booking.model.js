@@ -17,9 +17,14 @@ const bookingSchema = new Schema(
       type: Boolean,
       required: false,
     },
+    isPaid: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     users: {
       type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-      required: true,
+      required: false,
     },
     tripGoFlight: {
       type: Schema.Types.ObjectId,

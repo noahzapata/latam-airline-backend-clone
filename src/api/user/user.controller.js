@@ -5,11 +5,13 @@ const {
   createUser,
   allUsers,
   oneUser,
+  findFlights,
   deleteUser,
   signIn,
   signUp,
 } = require('./user.service');
 const User = require('./user.model');
+const Booking = require('../booking/booking.model');
 const { transporter, welcome } = require('../../utils/mailer');
 
 const signUpHandle = async (req, res) => {
@@ -59,16 +61,52 @@ const signInHandle = async (req, res) => {
       .json({ message: 'User could not login', error: err.message });
   }
 };
+const findUserflights = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await findFlights(email);
+    return res.status(200).json({ message: 'User flights found', data: user });
+  } catch (err) {
+    return res.status(400).json({ message: 'User not found', data: err });
+  }
+};
 
 async function create(req, res) {
-  const userData = req.body;
+  const { bookingId } = req.params;
+  const passengerRelated = req.body;
   try {
-    const user = await createUser(userData);
-    return res.status(201).json({ message: 'User created', data: user });
+    const userSaved = [];
+    const booking = await Booking.findById(bookingId);
+    if (!booking) {
+      throw new Error('The booking does not exist');
+    }
+
+    for (let i = 0; i < passengerRelated.length; i++) {
+      const existingUser = await User.findOne({
+        email: passengerRelated[i].email,
+      });
+      if (!existingUser) {
+        const user = await createUser(passengerRelated[i]);
+        user.bookings.push(bookingId);
+        await user.save({ validateBeforeSave: false });
+        userSaved.push(user);
+        booking.users.push(user);
+        await booking.save({ validateBeforeSave: false });
+        await transporter.sendMail(welcome(user));
+      } else {
+        existingUser.bookings.push(bookingId);
+        await existingUser.save({ validateBeforeSave: false });
+        userSaved.push(existingUser);
+        booking.users.push(existingUser);
+
+        await booking.save({ validateBeforeSave: false });
+      }
+    }
+    return res.status(201).json({ message: 'User created', data: userSaved });
   } catch (err) {
     return res
       .status(400)
-      .json({ messaje: 'User could not be created', data: err });
+      .json({ messaje: 'User could not be created', data: err.message });
   }
 }
 
@@ -120,6 +158,7 @@ module.exports = {
   list,
   show,
   update,
+  findUserflights,
   destroy,
   signUpHandle,
   signInHandle,

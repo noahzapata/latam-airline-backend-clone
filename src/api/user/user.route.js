@@ -7,14 +7,16 @@ const {
   show,
   update,
   destroy,
+  findUserflights,
   signInHandle,
   signUpHandle,
 } = require('./user.controller');
 
 const router = Router();
 
-router.post('/', create);
+router.post('/:bookingId', create);
 router.get('/', list);
+router.get('/userflights', findUserflights);
 router.get('/data', authenticate, show);
 router.post('/update', formData, update);
 router.delete('/:userId', destroy);
