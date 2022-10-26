@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const {
   updatePhotoUser,
-  createUser,
+  /*  createUser, */
   allUsers,
   oneUser,
   findFlights,
@@ -10,8 +10,8 @@ const {
   signIn,
   signUp,
 } = require('./user.service');
-const User = require('./user.model');
-const Booking = require('../booking/booking.model');
+/* const User = require('./user.model');
+const Booking = require('../booking/booking.model'); */
 const { transporter, welcome } = require('../../utils/mailer');
 
 const signUpHandle = async (req, res) => {
@@ -66,7 +66,7 @@ const findUserflights = async (req, res) => {
   }
 };
 
-async function create(req, res) {
+/* async function create(req, res) {
   const { bookingId } = req.params;
   const passengerRelated = req.body;
   try {
@@ -101,7 +101,7 @@ async function create(req, res) {
       .status(400)
       .json({ messaje: 'User could not be created', data: err.message });
   }
-}
+} */
 
 async function list(req, res) {
   try {
@@ -147,7 +147,7 @@ async function destroy(req, res) {
 }
 
 module.exports = {
-  create,
+  /*  create, */
   list,
   show,
   update,
