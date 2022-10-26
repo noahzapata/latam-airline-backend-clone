@@ -33,7 +33,7 @@ const userSchema = new Schema(
       },
     },
     documentNumber: {
-      type: String,
+      type: Number,
       required: true,
       minLength: [8, 'Number document is too short'],
       maxLength: [18, 'Number is too large'],
