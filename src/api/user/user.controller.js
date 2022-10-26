@@ -82,14 +82,14 @@ async function create(req, res) {
       });
       if (!existingUser) {
         const user = await createUser(passengerRelated[i]);
-        user.bookings.push(bookingId);
+        user.bookings.push(booking._id);
         await user.save({ validateBeforeSave: false });
         userSaved.push(user);
         booking.users.push(user);
         await booking.save({ validateBeforeSave: false });
         await transporter.sendMail(welcome(user));
       } else {
-        existingUser.bookings.push(bookingId);
+        existingUser.bookings.push(booking._id);
         await existingUser.save({ validateBeforeSave: false });
         userSaved.push(existingUser);
         booking.users.push(existingUser);
