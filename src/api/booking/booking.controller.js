@@ -19,7 +19,7 @@ const create = async (req, res) => {
     const booking = await createBooking(bookingData, id);
     user.bookings.push(booking);
     await user.save({ validateBeforeSave: false });
-    return res.status(200).json({ message: 'Booking created', data: booking });
+    return res.status(201).json({ message: 'Booking created', data: booking });
   } catch (err) {
     return res
       .status(400)
@@ -29,10 +29,8 @@ const create = async (req, res) => {
 const createTest = async (req, res) => {
   try {
     const bookingData = req.body;
-
     const booking = await createBookingTest(bookingData);
-
-    return res.status(200).json({ message: 'Booking created', data: booking });
+    return res.status(201).json({ message: 'Booking created', data: booking });
   } catch (err) {
     return res
       .status(400)
