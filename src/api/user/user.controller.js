@@ -85,15 +85,14 @@ async function create(req, res) {
         user.bookings.push(booking._id);
         await user.save({ validateBeforeSave: false });
         userSaved.push(user);
-        booking.users.push(user);
+        booking.users.push(user._id);
         await booking.save({ validateBeforeSave: false });
         await transporter.sendMail(welcome(user));
       } else {
         existingUser.bookings.push(booking._id);
         await existingUser.save({ validateBeforeSave: false });
         userSaved.push(existingUser);
-        booking.users.push(existingUser);
-
+        booking.users.push(existingUser._id);
         await booking.save({ validateBeforeSave: false });
       }
     }
