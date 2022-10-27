@@ -10,10 +10,10 @@ const { authenticate } = require('../middleware/auth');
 
 const router = Router();
 
+router.put('/payconfirm/update', update);
 router.post('/', authenticate, create);
 router.post('/test', createTest);
 router.get('/', list);
 router.get('/booking', show);
-router.post('/payconfirm/update', update);
 
 module.exports = router;
