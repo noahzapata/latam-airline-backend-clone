@@ -26,6 +26,7 @@ const create = async (req, res) => {
       .json({ message: 'Booking can not be created', data: err });
   }
 };
+
 const createTest = async (req, res) => {
   try {
     const bookingData = req.body;
