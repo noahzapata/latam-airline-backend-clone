@@ -179,6 +179,7 @@ const welcome = (user) => {
 };
 
 const checkout = (user, booking) => {
+
   let date = booking.tripGoFlight.date;
   const weekData = [
     'lunes',
@@ -210,11 +211,13 @@ const checkout = (user, booking) => {
   const minutes = date.getMinutes();
   const { departure, arrival } = booking;
 
+
   return {
     from: `"${process.env.SMTP_USERNAME}"<${process.env.SMTP_USER}`,
     to: user.email,
     subject: 'Muchas gracias por tu compra',
     html: `
+
       
 <body style=" box-sizing: border-box; background-color: rgb(238, 238, 238)">
 <div style="width: 35rem; border-radius: 10px;  margin: 1rem auto; background-color: rgb(255, 255, 255)"">
@@ -367,6 +370,7 @@ l589 0 10 38 c5 20 199 773 431 1672 231 899 424 1644 427 1655 4 13 145 -395
                     </a>
                 </div>
             </div>
+
         </div>
     </div>
 
