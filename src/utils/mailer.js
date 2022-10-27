@@ -178,7 +178,8 @@ const welcome = (user) => {
   };
 };
 
-const checkout = (user) => {
+// eslint-disable-next-line no-unused-vars
+const checkout = (user, booking) => {
   return {
     from: `"${process.env.SMTP_USERNAME}"<${process.env.SMTP_USER}`,
     to: user.email,

@@ -7,6 +7,8 @@ const {
   getBookingById,
   updateBooking,
 } = require('./booking.service');
+const Flight = require('../flight/flight.model');
+const { transporter, welcome, checkout } = require('../../utils/mailer');
 
 const create = async (req, res) => {
   try {
@@ -59,10 +61,56 @@ const show = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const data = req.body;
-  const { bookingId } = req.params;
+  const {
+    bookingId,
+    tripGoFlight,
+    tripGoBackFlight,
+    users,
+    reservedSeats,
+    luggage,
+    isPaid,
+  } = req.body;
+
+  const newBooking = {
+    isPaid,
+    reservedSeats,
+    luggage,
+  };
+
   try {
-    const booking = await updateBooking(bookingId, data);
+    const booking = await updateBooking(bookingId, newBooking);
+
+    const goFlight = await Flight.findById(tripGoFlight);
+    booking.tripGoFlight = goFlight;
+    await booking.save({ validateBeforeSave: false });
+
+    const GoBackFlight = await Flight.findById(tripGoBackFlight);
+    booking.tripGoBackFlight = GoBackFlight;
+    await booking.save({ validateBeforeSave: false });
+
+    for (let i = 0; i < users.length; i++) {
+      const existingUser = await User.findOne({
+        email: users[i].email,
+      });
+      if (!existingUser) {
+        const user = await User.create(users[i]);
+        booking.users.push(user);
+        await booking.save({ validateBeforeSave: false });
+        await transporter.sendMail(welcome(user));
+        await transporter.sendMail(checkout(user, booking));
+
+        user.bookings.push(booking);
+        await user.save({ validateBeforeSave: false });
+      } else {
+        booking.users.push(existingUser);
+        await booking.save({ validateBeforeSave: false });
+
+        existingUser.bookings.push(booking);
+        await existingUser.save({ validateBeforeSave: false });
+        await transporter.sendMail(checkout(existingUser, booking));
+      }
+    }
+
     return res.status(200).json({ message: 'booking updated', data: booking });
   } catch (err) {
     return res.status(400).json({ message: 'booking not update', data: err });

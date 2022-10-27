@@ -14,6 +14,6 @@ router.post('/', authenticate, create);
 router.post('/test', createTest);
 router.get('/', list);
 router.get('/booking', show);
-router.put('/:bookingId', update);
+router.post('/payconfirm', update);
 
 module.exports = router;
