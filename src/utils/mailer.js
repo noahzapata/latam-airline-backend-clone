@@ -178,4 +178,19 @@ const welcome = (user) => {
   };
 };
 
-module.exports = { transporter, verify, welcome };
+const checkout = (user) => {
+  return {
+    from: `"${process.env.SMTP_USERNAME}"<${process.env.SMTP_USER}`,
+    to: user.email,
+    subject: 'Muchas gracias por tu compra',
+    html: `
+      <body style="background-color: rgb(241, 241, 241);">
+        <div>
+          <h1>Muchas gracias por tu compra ${user.firstName} ${user.lastName}</h1>
+        </div>
+      </body>`,
+    text: `Muchas gracias por tu compra ${user.firstName} ${user.lastName}`,
+  };
+};
+
+module.exports = { transporter, verify, welcome, checkout };

@@ -19,7 +19,7 @@ router.get('/', list);
 router.get('/userflights', findUserflights);
 router.get('/data', authenticate, show);
 router.post('/update', formData, update);
-router.delete('/:userId', destroy);
+router.delete('/delete/:userId', destroy);
 router.post('/signin', signInHandle);
 router.post('/signup', signUpHandle);
 
