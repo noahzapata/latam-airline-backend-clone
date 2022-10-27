@@ -11,7 +11,10 @@ const bookingSchema = new Schema(
       required: [true, 'The field is required'],
     },
     luggage: [{}],
-    reservedSeats: [{}],
+    reservedSeats: {
+      tripGoSeats: [{}],
+      tripReturnSeats: [{}],
+    },
     checkIn: [],
     roundtrip: {
       type: Boolean,
