@@ -203,11 +203,12 @@ const checkout = (user, booking) => {
     'noviembre',
     'diciembre',
   ];
-  const year = date.getFullYear();
-  const month = monthData[date.getMonth() + 1];
-  const day = weekData[date.getDay()];
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
+  const newDate = new Date(date);
+  const year = newDate.getFullYear();
+  const month = monthData[newDate.getMonth() + 1];
+  const day = weekData[newDate.getDay()];
+  const hours = newDate.getHours();
+  const minutes = newDate.getMinutes();
   const { departure, arrival } = booking;
 
   return {
@@ -336,7 +337,7 @@ l589 0 10 38 c5 20 199 773 431 1672 231 899 424 1644 427 1655 4 13 145 -395
     <p style="font-size: 13px">
         Está todo listo para tu vuelo a ${arrival} (${
       booking._id
-    }), del ${day}, ${date.getDay()}
+    }), del ${day}, ${newDate.getDay()}
         de ${month} de ${year} a las ${hours}:${minutes}.
     </p>
 </div>
@@ -347,7 +348,7 @@ l589 0 10 38 c5 20 199 773 431 1672 231 899 424 1644 427 1655 4 13 145 -395
             </strong>a<strong style=" color: rgb(17, 17, 111);"> ${arrival} </strong> • ${day.slice(
       0,
       3
-    )}, ${date.getDay()} ${month.slice(0, 3)}. ${hours}:${minutes}</span>
+    )}, ${newDate.getDay()} ${month.slice(0, 3)}. ${hours}:${minutes}</span>
     </div>
     <div style="padding-bottom: 0.5rem;">
         <div
