@@ -178,7 +178,6 @@ const welcome = (user) => {
   };
 };
 
-// eslint-disable-next-line no-unused-vars
 const checkout = (user, booking) => {
   return {
     from: `"${process.env.SMTP_USERNAME}"<${process.env.SMTP_USER}`,
@@ -188,6 +187,7 @@ const checkout = (user, booking) => {
       <body style="background-color: rgb(241, 241, 241);">
         <div>
           <h1>Muchas gracias por tu compra ${user.firstName} ${user.lastName}</h1>
+          <p>No. de referencia LA${booking._id}</p>
         </div>
       </body>`,
     text: `Muchas gracias por tu compra ${user.firstName} ${user.lastName}`,
