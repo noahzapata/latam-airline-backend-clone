@@ -6,6 +6,7 @@ const airportSchema = new Schema(
       type: String,
       required: [true, 'This field is required'],
     },
+    cityImage: String,
     city: {
       type: String,
       required: [true, 'This field is requried'],
