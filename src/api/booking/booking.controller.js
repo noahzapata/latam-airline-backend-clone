@@ -122,7 +122,8 @@ const update = async (req, res) => {
               seat.row === tripReturnSeats[i].row
             );
           });
-          seatFound.avaliable = false;
+          const index = seatGroup.indexOf(seatFound);
+          seatGroup[index] = { ...seatFound, avaliable: false };
         });
       }
     }
