@@ -96,41 +96,121 @@ const update = async (req, res) => {
     const booking = await updateBooking(bookingId, newBooking);
 
     const goFlight = await Flight.findById(tripGoFlight);
+    const newFlightAndSeats = {
+      ...goFlight,
+      seats: {
+        ...goFlight.seats,
+        firstDiv: goFlight.seats.firstDiv,
+        secondDiv: goFlight.seats.secondDiv,
+        thirthDiv: goFlight.seats.thirthDiv,
+      },
+    };
     for (let i = 0; i < tripGoSeats.length; i++) {
-      for (const seatPackage of goFlight.seats) {
-        seatPackage.forEach((seatGroup) => {
-          const seatFound = seatGroup.find((seat) => {
-            return (
+      newFlightAndSeats.seats.firstDiv = goFlight.seats.firstDiv.map(
+        (rowSeats) => {
+          rowSeats.forEach((seat) => {
+            if (
               seat.column === tripGoSeats[i].column &&
               seat.row === tripGoSeats[i].row
-            );
+            ) {
+              seat.avaliable = false;
+            }
           });
-          const index = seatGroup.indexOf(seatFound);
-          seatGroup[index] = { ...seatFound, avaliable: false };
-        });
-      }
+        }
+      );
     }
-    await goFlight.save({ validateBeforeSave: false });
-    booking.tripGoFlight = goFlight;
+    for (let i = 0; i < tripGoSeats.length; i++) {
+      newFlightAndSeats.seats.secondDiv = goFlight.seats.firstDiv.map(
+        (rowSeats) => {
+          rowSeats.forEach((seat) => {
+            if (
+              seat.column === tripGoSeats[i].column &&
+              seat.row === tripGoSeats[i].row
+            ) {
+              seat.avaliable = false;
+            }
+          });
+        }
+      );
+    }
+    for (let i = 0; i < tripGoSeats.length; i++) {
+      newFlightAndSeats.seats.thirthDiv = goFlight.seats.firstDiv.map(
+        (rowSeats) => {
+          rowSeats.forEach((seat) => {
+            if (
+              seat.column === tripGoSeats[i].column &&
+              seat.row === tripGoSeats[i].row
+            ) {
+              seat.avaliable = false;
+            }
+          });
+        }
+      );
+    }
+    const goFlightUpdated = await Flight.findByIdAndUpdate(
+      goFlight._id,
+      newFlightAndSeats,
+      { new: true }
+    );
+    booking.tripGoFlight = goFlightUpdated;
     await booking.save({ validateBeforeSave: false });
 
     const GoBackFlight = await Flight.findById(tripGoBackFlight);
+    const newFlightAndSeatsToReturn = {
+      ...GoBackFlight,
+      seats: {
+        ...GoBackFlight.seats,
+        firstDiv: GoBackFlight.seats.firstDiv,
+        secondDiv: GoBackFlight.seats.secondDiv,
+        thirthDiv: GoBackFlight.seats.thirthDiv,
+      },
+    };
     for (let i = 0; i < tripReturnSeats.length; i++) {
-      for (const seatPackage of GoBackFlight.seats) {
-        seatPackage.forEach((seatGroup) => {
-          const seatFound = seatGroup.find((seat) => {
-            return (
+      newFlightAndSeatsToReturn.seats.firstDiv =
+        GoBackFlight.seats.firstDiv.map((rowSeats) => {
+          rowSeats.forEach((seat) => {
+            if (
               seat.column === tripReturnSeats[i].column &&
               seat.row === tripReturnSeats[i].row
-            );
+            ) {
+              seat.avaliable = false;
+            }
           });
-          const index = seatGroup.indexOf(seatFound);
-          seatGroup[index] = { ...seatFound, avaliable: false };
         });
-      }
     }
-    await GoBackFlight.save({ validateBeforeSave: false });
-    booking.tripGoBackFlight = GoBackFlight;
+    for (let i = 0; i < tripReturnSeats.length; i++) {
+      newFlightAndSeatsToReturn.seats.secondDiv =
+        GoBackFlight.seats.firstDiv.map((rowSeats) => {
+          rowSeats.forEach((seat) => {
+            if (
+              seat.column === tripReturnSeats[i].column &&
+              seat.row === tripReturnSeats[i].row
+            ) {
+              seat.avaliable = false;
+            }
+          });
+        });
+    }
+    for (let i = 0; i < tripReturnSeats.length; i++) {
+      newFlightAndSeatsToReturn.seats.thirthDiv =
+        GoBackFlight.seats.firstDiv.map((rowSeats) => {
+          rowSeats.forEach((seat) => {
+            if (
+              seat.column === tripGoSeats[i].column &&
+              seat.row === tripGoSeats[i].row
+            ) {
+              seat.avaliable = false;
+            }
+          });
+        });
+    }
+    const returnFlightUpdated = await Flight.findByIdAndUpdate(
+      GoBackFlight._id,
+      newFlightAndSeatsToReturn,
+      { new: true }
+    );
+
+    booking.tripGoBackFlight = returnFlightUpdated;
     await booking.save({ validateBeforeSave: false });
 
     for (let i = 0; i < users.length; i++) {
