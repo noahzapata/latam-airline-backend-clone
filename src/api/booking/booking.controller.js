@@ -96,7 +96,7 @@ const update = async (req, res) => {
     const booking = await updateBooking(bookingId, newBooking);
 
     const goFlight = await Flight.findById(tripGoFlight);
-    for (let i = 0; i < tripGoSeats.length; i < i++) {
+    for (let i = 0; i < tripGoSeats.length; i++) {
       for (const seatPackage of goFlight.seats) {
         seatPackage.forEach((seatGroup) => {
           const seatFound = seatGroup.find((seat) => {
@@ -105,7 +105,8 @@ const update = async (req, res) => {
               seat.row === tripGoSeats[i].row
             );
           });
-          seatFound.avaliable = false;
+          const index = seatGroup.indexOf(seatFound);
+          seatGroup[index] = { ...seatFound, avaliable: false };
         });
       }
     }
@@ -113,7 +114,7 @@ const update = async (req, res) => {
     await booking.save({ validateBeforeSave: false });
 
     const GoBackFlight = await Flight.findById(tripGoBackFlight);
-    for (let i = 0; i < tripReturnSeats.length; i < i++) {
+    for (let i = 0; i < tripReturnSeats.length; i++) {
       for (const seatPackage of GoBackFlight.seats) {
         seatPackage.forEach((seatGroup) => {
           const seatFound = seatGroup.find((seat) => {
