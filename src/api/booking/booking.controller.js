@@ -110,6 +110,7 @@ const update = async (req, res) => {
         });
       }
     }
+    await goFlight.save({ validateBeforeSave: false });
     booking.tripGoFlight = goFlight;
     await booking.save({ validateBeforeSave: false });
 
@@ -128,6 +129,7 @@ const update = async (req, res) => {
         });
       }
     }
+    await GoBackFlight.save({ validateBeforeSave: false });
     booking.tripGoBackFlight = GoBackFlight;
     await booking.save({ validateBeforeSave: false });
 
