@@ -4,6 +4,7 @@ const {
   createTest,
   list,
   show,
+  destroy,
   update,
 } = require('./booking.controller');
 const { authenticate } = require('../middleware/auth');
@@ -15,5 +16,6 @@ router.post('/', authenticate, create);
 router.post('/test', createTest);
 router.get('/', list);
 router.get('/booking', show);
+router.get('/destroy/:bookingId', destroy);
 
 module.exports = router;

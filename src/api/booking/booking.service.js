@@ -21,10 +21,15 @@ const updateBooking = (id, data) => {
   return Booking.findByIdAndUpdate(id, data, { new: true });
 };
 
+const deleteBooking = (id) => {
+  return Booking.findByIdAndDelete(id);
+};
+
 module.exports = {
   createBooking,
   getBooking,
   getBookingById,
   updateBooking,
   createBookingTest,
+  deleteBooking,
 };
