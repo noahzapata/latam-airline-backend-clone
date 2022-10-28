@@ -120,7 +120,7 @@ const update = async (req, res) => {
       );
     }
     for (let i = 0; i < tripGoSeats.length; i++) {
-      newFlightAndSeats.seats.secondDiv = goFlight.seats.firstDiv.map(
+      newFlightAndSeats.seats.secondDiv = goFlight.seats.secondDiv.map(
         (rowSeats) => {
           rowSeats.forEach((seat) => {
             if (
@@ -134,7 +134,7 @@ const update = async (req, res) => {
       );
     }
     for (let i = 0; i < tripGoSeats.length; i++) {
-      newFlightAndSeats.seats.thirthDiv = goFlight.seats.firstDiv.map(
+      newFlightAndSeats.seats.thirthDiv = goFlight.seats.thirthDiv.map(
         (rowSeats) => {
           rowSeats.forEach((seat) => {
             if (
@@ -180,7 +180,7 @@ const update = async (req, res) => {
     }
     for (let i = 0; i < tripReturnSeats.length; i++) {
       newFlightAndSeatsToReturn.seats.secondDiv =
-        GoBackFlight.seats.firstDiv.map((rowSeats) => {
+        GoBackFlight.seats.secondDiv.map((rowSeats) => {
           rowSeats.forEach((seat) => {
             if (
               seat.column === tripReturnSeats[i].column &&
@@ -193,7 +193,7 @@ const update = async (req, res) => {
     }
     for (let i = 0; i < tripReturnSeats.length; i++) {
       newFlightAndSeatsToReturn.seats.thirthDiv =
-        GoBackFlight.seats.firstDiv.map((rowSeats) => {
+        GoBackFlight.seats.thirthDiv.map((rowSeats) => {
           rowSeats.forEach((seat) => {
             if (
               seat.column === tripGoSeats[i].column &&
