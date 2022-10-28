@@ -89,15 +89,43 @@ const update = async (req, res) => {
     reservedSeats,
     luggage,
   };
+  const tripGoSeats = reservedSeats.tripGoSeats;
+  const tripReturnSeats = reservedSeats.tripReturnSeats;
 
   try {
     const booking = await updateBooking(bookingId, newBooking);
 
     const goFlight = await Flight.findById(tripGoFlight);
+    for (let i = 0; i < tripGoSeats.length; i < i++) {
+      for (const seatPackage of goFlight.seats) {
+        seatPackage.forEach((seatGroup) => {
+          const seatFound = seatGroup.find((seat) => {
+            return (
+              seat.column === tripGoSeats[i].column &&
+              seat.row === tripGoSeats[i].row
+            );
+          });
+          seatFound.avaliable = false;
+        });
+      }
+    }
     booking.tripGoFlight = goFlight;
     await booking.save({ validateBeforeSave: false });
 
     const GoBackFlight = await Flight.findById(tripGoBackFlight);
+    for (let i = 0; i < tripReturnSeats.length; i < i++) {
+      for (const seatPackage of GoBackFlight.seats) {
+        seatPackage.forEach((seatGroup) => {
+          const seatFound = seatGroup.find((seat) => {
+            return (
+              seat.column === tripReturnSeats[i].column &&
+              seat.row === tripReturnSeats[i].row
+            );
+          });
+          seatFound.avaliable = false;
+        });
+      }
+    }
     booking.tripGoBackFlight = GoBackFlight;
     await booking.save({ validateBeforeSave: false });
 
