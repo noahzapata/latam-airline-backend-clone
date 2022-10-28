@@ -17,15 +17,32 @@ const { transporter, welcome } = require('../../utils/mailer');
 const signUpHandle = async (req, res) => {
   const userData = req.body;
   try {
-    const encPassword = await bcrypt.hash(userData.password, 8);
-    const user = await signUp(userData, encPassword);
-    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
-      expiresIn: 60 * 60 * 24,
-    });
-    await transporter.sendMail(welcome(user));
-    return res
-      .status(201)
-      .json({ message: 'User created successfully', data: { user, token } });
+    const existingUser = await User.findOne({ email: userData.email });
+    if (existingUser) {
+      const encPassword = await bcrypt.hash(userData.password, 10);
+      const updateUser = await User.findByIdAndUpdate(
+        existingUser._id,
+        { ...userData, password: encPassword },
+        { new: true }
+      );
+      const token = jwt.sign({ id: updateUser._id }, process.env.SECRET_KEY, {
+        expiresIn: 60 * 60 * 24,
+      });
+      return res.status(200).json({
+        message: 'User updated successfully',
+        data: { token },
+      });
+    } else {
+      const encPassword = await bcrypt.hash(userData.password, 10);
+      const user = await signUp(userData, encPassword);
+      const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
+        expiresIn: 60 * 60 * 24,
+      });
+      await transporter.sendMail(welcome(user));
+      return res
+        .status(201)
+        .json({ message: 'User created successfully', data: { token } });
+    }
   } catch (err) {
     return res
       .status(400)
