@@ -2,6 +2,7 @@ const User = require('../user/user.model');
 const jwt = require('jsonwebtoken');
 const {
   createBooking,
+  deleteBooking,
   createBookingTest,
   getBooking,
   getBookingById,
@@ -22,6 +23,18 @@ const create = async (req, res) => {
     user.bookings.push(booking);
     await user.save({ validateBeforeSave: false });
     return res.status(201).json({ message: 'Booking created', data: booking });
+  } catch (err) {
+    return res
+      .status(400)
+      .json({ message: 'Booking can not be created', data: err });
+  }
+};
+
+const destroy = async (req, res) => {
+  try {
+    const { bookingId } = req.params;
+    const booking = await deleteBooking(bookingId);
+    return res.status(200).json({ message: 'Booking deleted', data: booking });
   } catch (err) {
     return res
       .status(400)
@@ -117,4 +130,4 @@ const update = async (req, res) => {
   }
 };
 
-module.exports = { create, list, show, update, createTest };
+module.exports = { create, list, show, update, createTest, destroy };
