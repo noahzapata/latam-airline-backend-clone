@@ -16,7 +16,7 @@ const router = Router();
 
 router.post('/users-booking/:bookingId', create);
 router.get('/', list);
-router.get('/userflights', findUserflights);
+router.post('/userflights', findUserflights);
 router.get('/data', authenticate, show);
 router.post('/update', formData, update);
 router.delete('/delete/:userId', destroy);

@@ -20,6 +20,24 @@ const oneUser = (id) => {
 const findFlights = (email) => {
   return User.findOne({ email }).populate({
     path: 'bookings',
+    populate: [
+      {
+        path: 'tripGoFlight',
+        model: 'Flight',
+        populate: [
+          { path: 'departureAirport', model: 'Airport' },
+          { path: 'departureArrival', model: 'Airport' },
+        ],
+      },
+      {
+        path: 'tripGoBackFlight',
+        model: 'Flight',
+        populate: [
+          { path: 'departureAirport', model: 'Airport' },
+          { path: 'departureArrival', model: 'Airport' },
+        ],
+      },
+    ],
   });
 };
 
